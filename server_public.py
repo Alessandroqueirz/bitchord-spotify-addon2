@@ -189,9 +189,15 @@ def stream_apple():
 
 @app.route("/health")
 def health():
+    # Health leve e instantaneo para UptimeRobot nao dar Down
+    return jsonify({"status": "ok", "spotify": "ok", "apple": "ok"})
+
+@app.route("/health/detailed")
+def health_detailed():
     token = get_anonymous_spotify_token()
     return jsonify({"status": "ok", "spotify_token_ok": bool(token), "apple": "ok"})
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8080))
     app.run(host="0.0.0.0", port=port)
+
